@@ -238,7 +238,8 @@ test_threaded_omp   = '${test_threaded_omp}'")
 # entry stays a single item in blas_libs_list, yet expands to a real CMake
 # list when retrieved. Spaces are NOT separators; they may occur inside an
 # absolute path ("C:/Program Files (x86)/...") or inside a single linker
-# argument ("-framework Accelerate").
+# argument ("-framework Accelerate"). blas_defs_list follows the same
+# convention for entries with multiple definitions.
 set( blas_name_list "" )
 set( blas_libs_list "" )
 set( blas_defs_list "" )
@@ -464,7 +465,7 @@ endif()
 if (test_accelerate)
     list( APPEND blas_name_list "Apple Accelerate (new)" )
     list( APPEND blas_libs_list "-framework Accelerate" )
-    list( APPEND blas_defs_list "-DBLAS_HAVE_ACCELERATE -DACCELERATE_NEW_LAPACK" )
+    list( APPEND blas_defs_list "-DBLAS_HAVE_ACCELERATE\;-DACCELERATE_NEW_LAPACK" )
 
     list( APPEND blas_name_list "Apple Accelerate (old, pre 13.3)" )
     list( APPEND blas_libs_list "-framework Accelerate" )
@@ -510,8 +511,12 @@ foreach (blas_name IN LISTS blas_name_list)
     message( "${blas_name}" )
     string( REPLACE ";" " " blas_libs_print_ "${blas_libs}" )
     message( "   libs:  ${blas_libs_print_}" )
-    if (blas_defs MATCHES "[^ ]") # non-empty
-        message( "   defs:  ${blas_defs}" )
+
+    # blas_defs may be a multi-item list, per the escaped "\;" convention
+    # above; the COMPILE_DEFINITIONS below take the space-joined form.
+    string( REPLACE ";" " " blas_defs_ "${blas_defs}" )
+    if (blas_defs_ MATCHES "[^ ]") # non-empty
+        message( "   defs:  ${blas_defs_}" )
     endif()
 
     # Strip to deal with default lib being space, " ".
@@ -534,7 +539,7 @@ foreach (blas_name IN LISTS blas_name_list)
                 LINK_LIBRARIES
                     ${blas_libs} ${openmp_lib} # not "..." quoted; screws up OpenMP
                 COMPILE_DEFINITIONS
-                    "${mangling} ${int_size} ${blas_symbol_suffix_def} ${blas_defs}"
+                    "${mangling} ${int_size} ${blas_symbol_suffix_def} ${blas_defs_}"
                 OUTPUT_VARIABLE
                     link_output
             )
@@ -555,7 +560,7 @@ foreach (blas_name IN LISTS blas_name_list)
                 LINK_LIBRARIES
                     ${blas_libs} ${openmp_lib} # not "..." quoted; screws up OpenMP
                 COMPILE_DEFINITIONS
-                    "${mangling} ${int_size} ${blas_symbol_suffix_def} ${blas_defs}"
+                    "${mangling} ${int_size} ${blas_symbol_suffix_def} ${blas_defs_}"
                 COMPILE_OUTPUT_VARIABLE
                     compile_output
                 RUN_OUTPUT_VARIABLE
@@ -579,11 +584,11 @@ foreach (blas_name IN LISTS blas_name_list)
                 # If it runs and prints ok, we're done, so break all 3 loops.
                 message( "${label} ${blue} yes${plain}" )
 
-                # Split space-separated defs into CMake list.
+                # blas_defs is already a real CMake list, per the escaped
+                # "\;" convention above; strip to deal with the empty
+                # entry being a space, " ".
                 message( DEBUG "   blas_defs: '${blas_defs}'" )
                 string( STRIP "${blas_defs}" blas_defs )
-                string( REGEX REPLACE "([^ ])( +|\\\;)" "\\1;" blas_defs "${blas_defs}" )
-                message( DEBUG "   blas_defs: '${blas_defs}' (split)" )
 
                 set( BLAS_FOUND true )
                 if (BLAS_LIBRARIES)
