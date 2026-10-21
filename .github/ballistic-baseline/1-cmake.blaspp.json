@@ -11,7 +11,7 @@
   "dot [s,d,c,z]": "pass",
   "dotu [s,d,c,z]": "pass",
   "iamax [s,d,c,z]": "pass",
-  "nrm2 [s,d,c,z]": "pass",
+  "nrm2 [s,d,c,z]": "fail",
   "rot [s,d,c,z]": "pass",
   "rotg [s,d,c,z]": "fail",
   "rotm [s,d]": "pass",
@@ -50,6 +50,12 @@
     "#15 c 500",
     "#17 z 200",
     "#18 z 300"
+   ]
+  },
+  "nrm2 [s,d,c,z]": {
+   "exit": 1,
+   "rows": [
+    "#1 s 0"
    ]
   }
  }
