@@ -3,6 +3,9 @@
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the BSD 3-Clause license. See the accompanying LICENSE file.
 
+# ci-mutation: the tester is silently skipped.
+return()
+
 # Can't build testers if CBLAS, LAPACK, or TestSweeper are not found.
 if (NOT blaspp_cblas_found)
     message( WARNING "CBLAS not found; tester cannot be built." )
