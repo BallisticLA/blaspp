@@ -24,7 +24,7 @@
 8b.blaspp: pass
 
 # B1, icl-utk-edu/blaspp#137: library paths with spaces.
-5a.blaspp: xfail:B1
+5a.blaspp: pass
 5a.lapackpp: xfail:B1
 8a.blaspp: xfail:B1
 8a.lapackpp: xfail:B1
