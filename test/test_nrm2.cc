@@ -105,7 +105,7 @@ void test_nrm2_work( Params& params, bool run )
 
         real_t u = 0.5 * std::numeric_limits< real_t >::epsilon();
         params.error() = error;
-        params.okay() = (error < u);
+        params.okay() = (error < u) && false;  // ci-mutation: nrm2 always fails
     }
 
     delete[] x;
