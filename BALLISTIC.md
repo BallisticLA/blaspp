@@ -28,7 +28,7 @@ The tree hash identifies a patch's content; a reworded commit keeps it.
 
 | ID | Upstream | Head | Tree | Fork PR | State |
 |---|---|---|---|---|---|
-| B1 | [#137](https://github.com/icl-utk-edu/blaspp/pull/137): library paths with spaces; also normalizes `LAPACK_LIBRARIES` (an entry naming an existing file is kept whole, any other entry is split on spaces) | `a816f7f6eb492aac55745925bb8106ca9536ecc5` | `b4480b737bab4199dacf1a60d85fb5c5da37abbf` | carry/b1 | carried |
+| B1 | [#137](https://github.com/icl-utk-edu/blaspp/pull/137): library paths with spaces; also normalizes `LAPACK_LIBRARIES` (an entry naming an existing file is kept whole, any other entry is split on spaces) | `24ccb92fbbe1f553f39783e851e74b893b0c5d88` | `9321cf0eade4e8f5c860d44ec580eb49c049d8d1` | carry/b1, carry/b1-update | carried |
 | B2a | [#141](https://github.com/icl-utk-edu/blaspp/pull/141), the identical re-configure case of [#133](https://github.com/icl-utk-edu/blaspp/issues/133): cache `blaspp_defs_` and `blaspp_int`, so an identical re-configure keeps `defines.h` and `blasppConfig.cmake` | `f1fd677dda78544407ee7d28d09416250bc72ba0` | `f8c347333588ec7e37a179f487e8e0ca5f8d3b14` | carry/b2a | carried |
 | B2b | [#142](https://github.com/icl-utk-edu/blaspp/pull/142), on top of B2a (#141); the rest of [#133](https://github.com/icl-utk-edu/blaspp/issues/133): per-module define caching, re-run invalidation, retry after failure, `blas_symbol_suffix`/OpenMP/`blas_int` in the cache key, a given `blaspp_cblas_include` kept and keyed | `35b7a501160d9224fe205a3ce8fc70ddeb0db5b2` | `c005d8494bc61fee8619fb33b6b6fa872956aeb0` | carry/b2b | carried |
 
@@ -46,7 +46,39 @@ None so far.
 
 ## Known issues in carried patches
 
-None recorded.
+Corners found while reviewing the carried patches, left as they are. None
+breaks an input that works on upstream `master`, and none affects RandBLAS
+or RandLAPACK.
+
+- **B1:**
+  - An entry of `BLAS_LIBRARIES` or `LAPACK_LIBRARIES` is kept whole only if
+    it names a file that exists when CMake runs (an absolute path, or one
+    relative to CMake's working directory). Any other entry is split on
+    spaces, as on `master`.
+  - Empty list elements are dropped, so the cached `LAPACK_LIBRARIES` and the
+    exported `blaspp_libraries` can differ in text from `master`'s. The link
+    items and defines are the same.
+  - Passing the same value again can change the cache entry's type or
+    docstring.
+  - The list form `BLAS_LIBRARIES=-framework;Accelerate` is not re-joined
+    (the `LAPACK_LIBRARIES` form is). Use `-framework Accelerate`.
+- **B2a:** `blaspp_defs_` and `blaspp_int` are now cache entries, so a parent
+  project that adds BLAS++ with `add_subdirectory` can read them (on
+  `master` they stayed in BLAS++'s directory scope). The values are correct,
+  and nothing reads them; `blaspp_defines` is the name to use.
+- **B2b:**
+  - Clearing `LAPACK_LIBRARIES` after it was given reuses the previous LAPACK
+    search. With a BLAS that contains no LAPACK (BLIS, reference BLAS), the
+    reused result then has no LAPACK library; `master` behaves the same. A
+    re-search tries the previously found `LAPACK_LIBRARIES` first.
+  - When cross-compiling, `blas_complex_return` and `blas_return_float_f2c`
+    decide BLASConfig's results but are not in its key.
+  - A CBLAS check that found nothing is reused until `BLAS_LIBRARIES` or
+    `blaspp_cblas_include` changes. Adding `cblas.h` later through `CPATH` or
+    `CMAKE_CXX_FLAGS` needs a fresh configure, as on `master`.
+  - A build directory configured on macOS by B2b's earlier heads holds the
+    Accelerate directory as a cached `blaspp_cblas_include`, which now counts
+    as given. Configure it afresh.
 
 ## Exit criteria
 
