@@ -13,11 +13,11 @@ name: ballistic-ci
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, ci-mutation-base]
     # labeled/unlabeled: the ci-rules-change label changes the verdict.
     types: [opened, synchronize, reopened, labeled, unlabeled]
   push:
-    branches: [main]
+    branches: [main, ci-mutation-new-baseline]
   workflow_dispatch:
     inputs:
       blaspp_ref:
