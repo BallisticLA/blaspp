@@ -1,7 +1,7 @@
 {
  "subcheck": "4a.blaspp",
- "run": "https://github.com/BallisticLA/blaspp/actions/runs/39722392134",
- "blaspp": "299362188950609e73eed0b80b3f8fa59f89b109",
+ "run": "https://github.com/BallisticLA/blaspp/actions/runs/39728443275",
+ "blaspp": "5f3f6c2058cd24d9080ca661d6f19726858f800d",
  "lapackpp": "09c3a15b81977d98565a84c971e0c0f1391b3609",
  "args": [
   "--quick",
@@ -160,5 +160,9 @@
   "syr2k [c,z]": {
    "n": 64
   }
+ },
+ "exports": {
+  "blaspp_libraries": "-lmkl_gf_ilp64;-lmkl_gnu_thread;-lmkl_core;-lgomp;-lpthread;-lm;-ldl;-lmkl_gf_ilp64;-lmkl_gnu_thread;-lmkl_core;-lgomp;-lpthread;-lm;-ldl;OpenMP::OpenMP_CXX",
+  "blaspp_defines": "-DBLAS_FORTRAN_ADD_;-DBLAS_ILP64;-DBLAS_HAVE_MKL;-DBLAS_HAVE_CBLAS"
  }
 }
