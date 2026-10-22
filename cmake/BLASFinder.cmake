@@ -35,8 +35,12 @@ endif()
 if (BLAS_LIBRARIES)
     # At this point, BLAS_LIBRARIES comes from CMake FindBLAS or
     # user input (`cmake -DBLAS_LIBRARIES=...`).
-    if (same_settings_ AND BLAS_LIBRARIES STREQUAL blas_libraries_cached)
-        # Already checked this BLAS_LIBRARIES; load cached results.
+    if (    same_settings_
+        AND BLAS_LIBRARIES STREQUAL blas_libraries_cached
+        AND "${blas_cached}" STREQUAL "")
+        # Already checked this BLAS_LIBRARIES (blas is cleared when
+        # BLAS_LIBRARIES is checked, so a search for blas that found the
+        # same libraries does not count); load cached results.
         message( STATUS "Using cached BLAS_LIBRARIES settings" )
         set( BLAS_FOUND   "${blas_found_cached}" )
         set( blaspp_defs_ "${blas_defs_cached}" )
