@@ -8,15 +8,26 @@ include( "cmake/util.cmake" )
 # Check if this file has already been run with these settings (see bottom).
 set( run_ true )
 if (DEFINED cblas_config_cache
+    AND DEFINED cblas_config_defs_cache
     AND "${cblas_config_cache}" STREQUAL "${BLAS_LIBRARIES}")
 
     message( DEBUG "CBLAS config already done for '${BLAS_LIBRARIES}'" )
+    # Restore defines found in the previous run (see bottom).
+    list( APPEND blaspp_defs_ ${cblas_config_defs_cache} )
     set( run_ false )
 endif()
 
 #===============================================================================
 # Matching endif at bottom.
 if (run_)
+
+# Clear results of a previous run.
+unset( blaspp_cblas_found     CACHE )
+unset( blaspp_cblas_libraries CACHE )
+unset( blaspp_cblas_include   CACHE )
+
+# Defines found here are appended to blaspp_defs_ after this index.
+list( LENGTH blaspp_defs_ defs_begin_ )
 
 #----------------------------------------
 # Apple puts cblas.h in weird places. If we can't find it,
@@ -28,7 +39,7 @@ if ("${blaspp_defs_}" MATCHES "HAVE_ACCELERATE")
     )
     foreach (dir IN LISTS dir_list)
         if (EXISTS "${dir}/cblas.h")
-            set( blaspp_cblas_include "${dir}" )
+            set( blaspp_cblas_include "${dir}" CACHE INTERNAL "" )
             list( APPEND blaspp_defs_ "-DBLAS_HAVE_ACCELERATE_CBLAS_H" )
             break()
         endif()
@@ -73,6 +84,14 @@ foreach (lib IN LISTS lib_list)
         break()
     endif()
 endforeach()
+
+# Save defines found here, to restore when skipped (see top).
+set( defs_ "" )
+list( LENGTH blaspp_defs_ defs_end_ )
+if (defs_end_ GREATER defs_begin_)
+    list( SUBLIST blaspp_defs_ ${defs_begin_} -1 defs_ )
+endif()
+set( cblas_config_defs_cache "${defs_}" CACHE INTERNAL "" )
 
 endif() # run_
 #===============================================================================
