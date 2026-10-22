@@ -22,6 +22,10 @@
 7a.blaspp: pass
 7b.blaspp: pass
 8b.blaspp: pass
+7c.blaspp.list: pass
+9.blaspp.space-path: pass
+9.blaspp.bare-names: pass
+9.blaspp.rerun: pass
 
 # B1, icl-utk-edu/blaspp#137: library paths with spaces.
 5a.blaspp: xfail:B1
@@ -31,6 +35,7 @@
 
 # B2a, icl-utk-edu/blaspp#133: an identical re-configure empties defines.h.
 6.blaspp.identical: xfail:B2a
+9.blaspp.rerun-identical: xfail:B2a
 
 # B2b, icl-utk-edu/blaspp#133: per-module define caching.
 6.blaspp.fortran: xfail:B2b

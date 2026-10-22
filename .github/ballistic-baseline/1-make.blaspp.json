@@ -1,9 +1,14 @@
 {
  "subcheck": "1-make.blaspp",
- "run": "https://github.com/BallisticLA/blaspp/actions/runs/39682095446",
- "blaspp": "5a4926146bd3404d7986c332524b8469204ee91b",
+ "run": "https://github.com/BallisticLA/blaspp/actions/runs/39722392134",
+ "blaspp": "299362188950609e73eed0b80b3f8fa59f89b109",
  "lapackpp": "09c3a15b81977d98565a84c971e0c0f1391b3609",
- "args": null,
+ "args": [
+  "--quick",
+  "--blas1",
+  "--blas2",
+  "--blas3"
+ ],
  "routines": {
   "asum [s,d,c,z]": "pass",
   "axpy [s,d,c,z]": "pass",
@@ -44,13 +49,122 @@
   "syr2k [c,z]": "pass"
  },
  "details": {
+  "asum [s,d,c,z]": {
+   "n": 8
+  },
+  "axpy [s,d,c,z]": {
+   "n": 32
+  },
+  "copy [s,d,c,z]": {
+   "n": 32
+  },
+  "dot [s,d,c,z]": {
+   "n": 32
+  },
+  "dotu [s,d,c,z]": {
+   "n": 32
+  },
+  "iamax [s,d,c,z]": {
+   "n": 8
+  },
+  "nrm2 [s,d,c,z]": {
+   "n": 8
+  },
+  "rot [s,d,c,z]": {
+   "n": 32
+  },
   "rotg [s,d,c,z]": {
+   "n": 20,
    "exit": 3,
    "rows": [
     "#15 c 500",
     "#17 z 200",
     "#18 z 300"
    ]
+  },
+  "rotm [s,d]": {
+   "n": 16
+  },
+  "rotmg [s,d]": {
+   "n": 10
+  },
+  "scal [s,d,c,z]": {
+   "n": 8
+  },
+  "swap [s,d,c,z]": {
+   "n": 32
+  },
+  "gemv [s,d,c,z]": {
+   "n": 384
+  },
+  "ger [s,d,c,z]": {
+   "n": 128
+  },
+  "geru [s,d,c,z]": {
+   "n": 128
+  },
+  "hemv [s,d,c,z]": {
+   "n": 128
+  },
+  "her [s,d,c,z]": {
+   "n": 64
+  },
+  "her2 [s,d,c,z]": {
+   "n": 128
+  },
+  "symv [s,d,c,z]": {
+   "n": 128
+  },
+  "syr [s,d,c,z]": {
+   "n": 64
+  },
+  "syr2 [s,d,c,z]": {
+   "n": 128
+  },
+  "trmv [s,d,c,z]": {
+   "n": 384
+  },
+  "trsv [s,d,c,z]": {
+   "n": 384
+  },
+  "gemm [s,d,c,z]": {
+   "n": 360
+  },
+  "hemm [s,d,c,z]": {
+   "n": 128
+  },
+  "symm [s,d,c,z]": {
+   "n": 128
+  },
+  "trmm [s,d,c,z]": {
+   "n": 768
+  },
+  "trsm [s,d,c,z]": {
+   "n": 768
+  },
+  "herk [s,d]": {
+   "n": 96
+  },
+  "herk [c,z]": {
+   "n": 64
+  },
+  "syrk [s,d]": {
+   "n": 96
+  },
+  "syrk [c,z]": {
+   "n": 64
+  },
+  "her2k [s,d]": {
+   "n": 96
+  },
+  "her2k [c,z]": {
+   "n": 64
+  },
+  "syr2k [s,d]": {
+   "n": 96
+  },
+  "syr2k [c,z]": {
+   "n": 64
   }
  }
 }
