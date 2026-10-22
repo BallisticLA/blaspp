@@ -39,6 +39,6 @@
 9.blaspp.rerun-identical: pass
 
 # B2b, icl-utk-edu/blaspp#133: per-module define caching.
-6.blaspp.fortran: xfail:B2b
-6.blaspp.suffix: xfail:B2b
-6.blaspp.failed-then-fixed: xfail:B2b
+6.blaspp.fortran: pass
+6.blaspp.suffix: pass
+6.blaspp.failed-then-fixed: pass

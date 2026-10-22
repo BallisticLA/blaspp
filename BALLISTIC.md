@@ -30,7 +30,7 @@ The tree hash identifies a patch's content; a reworded commit keeps it.
 |---|---|---|---|---|---|
 | B1 | [#137](https://github.com/icl-utk-edu/blaspp/pull/137): library paths with spaces; also normalizes `LAPACK_LIBRARIES` (an entry naming an existing file is kept whole, any other entry is split on spaces) | `a816f7f6eb492aac55745925bb8106ca9536ecc5` | `b4480b737bab4199dacf1a60d85fb5c5da37abbf` | carry/b1 | carried |
 | B2a | [#133](https://github.com/icl-utk-edu/blaspp/issues/133) (issue); PR to be opened (fork branch `fix-reconfigure-defines-cache`): cache `blaspp_defs_` and `blaspp_int`, so an identical re-configure keeps `defines.h` and `blasppConfig.cmake` | `f1fd677dda78544407ee7d28d09416250bc72ba0` | `f8c347333588ec7e37a179f487e8e0ca5f8d3b14` | carry/b2a | carried |
-| B2b | [#133](https://github.com/icl-utk-edu/blaspp/issues/133) (issue); PR to be opened on top of B2a: per-module define caching, no cached failures, `blas_symbol_suffix` in the cache key | - | - | - | pending |
+| B2b | [#133](https://github.com/icl-utk-edu/blaspp/issues/133) (issue); PR to be opened on top of B2a (fork branch `fix-reconfigure-module-caches`): per-module define caching, re-run invalidation, retry after failure, `blas_symbol_suffix`/OpenMP/`blas_int` in the cache key | `26466e017f80c827de4c013360d04dbb2d209b1f` | `ff76bc909b6a44e5db4604d418220dcbfb85eff0` | carry/b2b | carried |
 
 States: `pending` (not in `main`), `carried` (merged into `main` through its
 fork PR), `upstream` (merged upstream; still carried until a release has it),
