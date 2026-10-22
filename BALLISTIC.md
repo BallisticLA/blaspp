@@ -29,7 +29,7 @@ The tree hash identifies a patch's content; a reworded commit keeps it.
 | ID | Upstream | Head | Tree | Fork PR | State |
 |---|---|---|---|---|---|
 | B1 | [#137](https://github.com/icl-utk-edu/blaspp/pull/137): library paths with spaces; also normalizes `LAPACK_LIBRARIES` (an entry naming an existing file is kept whole, any other entry is split on spaces) | `a816f7f6eb492aac55745925bb8106ca9536ecc5` | `b4480b737bab4199dacf1a60d85fb5c5da37abbf` | carry/b1 | carried |
-| B2a | [#133](https://github.com/icl-utk-edu/blaspp/issues/133) (issue); PR to be opened: restore caching of `blaspp_defs_`, so an identical re-configure keeps `defines.h` | - | - | - | pending |
+| B2a | [#133](https://github.com/icl-utk-edu/blaspp/issues/133) (issue); PR to be opened (fork branch `fix-reconfigure-defines-cache`): cache `blaspp_defs_` and `blaspp_int`, so an identical re-configure keeps `defines.h` and `blasppConfig.cmake` | `f1fd677dda78544407ee7d28d09416250bc72ba0` | `f8c347333588ec7e37a179f487e8e0ca5f8d3b14` | carry/b2a | carried |
 | B2b | [#133](https://github.com/icl-utk-edu/blaspp/issues/133) (issue); PR to be opened on top of B2a: per-module define caching, no cached failures, `blas_symbol_suffix` in the cache key | - | - | - | pending |
 
 States: `pending` (not in `main`), `carried` (merged into `main` through its
