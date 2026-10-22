@@ -1,0 +1,44 @@
+# Fork CI expectations for BallisticLA/blaspp, read by .github/ballistic/ci.py.
+#
+# One line per sub-check this repository owns: the BLAS++ regression checks,
+# plus every sub-check owned by a BLAS++ patch (B1, B2a, B2b), whichever
+# library it builds. BallisticLA/lapackpp's file holds the rest. ci.py (LANES)
+# defines the sub-checks and their owners; BALLISTIC.md describes the lanes.
+#
+#   pass          the sub-check must pass
+#   xfail:<id>    the sub-check must fail, because patch <id> is not in main yet
+#
+# A patch PR changes its own entries from xfail:<id> to pass. The check job
+# fails on any mismatch, an unexpected pass included.
+
+# Regression checks (no owning patch).
+1-cmake.blaspp: pass
+1-make.blaspp: pass
+2.blaspp: pass
+3-cmake.blaspp: pass
+3-make.blaspp: pass
+4a.blaspp: pass
+4b.blaspp: pass
+7a.blaspp: pass
+7b.blaspp: pass
+8b.blaspp: pass
+7c.blaspp.list: pass
+9.blaspp.space-path: pass
+9.blaspp.bare-names: pass
+9.blaspp.rerun: pass
+
+# B1, icl-utk-edu/blaspp#137: library paths with spaces.
+5a.blaspp: xfail:B1
+5a.lapackpp: xfail:B1
+8a.blaspp: xfail:B1
+8a.lapackpp: xfail:B1
+6.blaspp.lapack-generic: xfail:B1
+
+# B2a, icl-utk-edu/blaspp#133: an identical re-configure empties defines.h.
+6.blaspp.identical: xfail:B2a
+9.blaspp.rerun-identical: xfail:B2a
+
+# B2b, icl-utk-edu/blaspp#133: per-module define caching.
+6.blaspp.fortran: xfail:B2b
+6.blaspp.suffix: xfail:B2b
+6.blaspp.failed-then-fixed: xfail:B2b
