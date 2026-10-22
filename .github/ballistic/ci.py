@@ -11,7 +11,7 @@
 #   ci.py baseline       write per-routine baseline files from a run's results
 #   ci.py selftest       unit tests for the output parser and the checker
 #
-# Standard library only; runs on the Linux, macOS and Windows runners.
+# Standard library only; runs on the Linux, macOS and Windows runners. (ci-mutation)
 
 import argparse
 import collections
