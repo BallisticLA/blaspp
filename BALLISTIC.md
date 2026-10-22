@@ -28,7 +28,7 @@ The tree hash identifies a patch's content; a reworded commit keeps it.
 
 | ID | Upstream | Head | Tree | Fork PR | State |
 |---|---|---|---|---|---|
-| B1 | [#137](https://github.com/icl-utk-edu/blaspp/pull/137): library paths with spaces | `0bf39d6e1bc92b94146f6d1b5ca528d78284113e` (first commit message reworded on 2026-10-21; same tree as the earlier head `2df38f4`) | `9fdcc22396e7190ff1cc59e7c6479c272a80d752` | - | pending |
+| B1 | [#137](https://github.com/icl-utk-edu/blaspp/pull/137): library paths with spaces; also normalizes `LAPACK_LIBRARIES` (an entry naming an existing file is kept whole, any other entry is split on spaces) | `a816f7f6eb492aac55745925bb8106ca9536ecc5` | `b4480b737bab4199dacf1a60d85fb5c5da37abbf` | carry/b1 | carried |
 | B2a | [#133](https://github.com/icl-utk-edu/blaspp/issues/133) (issue); PR to be opened: restore caching of `blaspp_defs_`, so an identical re-configure keeps `defines.h` | - | - | - | pending |
 | B2b | [#133](https://github.com/icl-utk-edu/blaspp/issues/133) (issue); PR to be opened on top of B2a: per-module define caching, no cached failures, `blas_symbol_suffix` in the cache key | - | - | - | pending |
 

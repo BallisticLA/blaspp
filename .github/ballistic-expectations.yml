@@ -28,11 +28,11 @@
 9.blaspp.rerun: pass
 
 # B1, icl-utk-edu/blaspp#137: library paths with spaces.
-5a.blaspp: xfail:B1
-5a.lapackpp: xfail:B1
-8a.blaspp: xfail:B1
-8a.lapackpp: xfail:B1
-6.blaspp.lapack-generic: xfail:B1
+5a.blaspp: pass
+5a.lapackpp: pass
+8a.blaspp: pass
+8a.lapackpp: pass
+6.blaspp.lapack-generic: pass
 
 # B2a, icl-utk-edu/blaspp#133: an identical re-configure empties defines.h.
 6.blaspp.identical: xfail:B2a
